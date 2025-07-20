@@ -11,9 +11,8 @@ The `.well-known` directory is currently returning a 404 error. This guide helps
 1. Go to your repository: https://github.com/petems/petems.github.io
 2. Click on **Settings** tab
 3. Scroll down to **Pages** section
-4. Under **Source**, select **Deploy from a branch**
-5. Choose **master** branch (your default branch)
-6. Click **Save**
+4. Under **Source**, select **GitHub Actions**
+5. Click **Save**
 
 ### 2. Verify Configuration Files
 
@@ -22,10 +21,11 @@ The following files have been added to ensure proper serving:
 - **`.nojekyll`** - Tells GitHub Pages not to process with Jekyll
 - **`.well-known/test.txt`** - Test file to verify directory access
 - **`verify-well-known.html`** - Verification page for testing
+- **`.github/workflows/deploy-static.yml`** - Automated deployment workflow
 
 ### 3. Test the Setup
 
-After enabling GitHub Pages, test the following URLs:
+After enabling GitHub Pages and pushing changes, test the following URLs:
 
 - **Main site**: https://petems.github.io
 - **Test file**: https://petems.github.io/.well-known/test.txt
@@ -39,17 +39,32 @@ If properly configured, you should see:
 - ✅ `.well-known/test.txt` returns the test content
 - ✅ `.well-known/microsoft-identity-association.json` returns the JSON data
 - ✅ No 404 errors for `.well-known` files
+- ✅ Automated deployment on every push to master
 
-### 5. Troubleshooting
+### 5. Deployment Workflow
+
+The repository now includes an automated deployment workflow:
+
+- **Trigger**: Automatically runs on every push to `master` branch
+- **Build**: Creates a static site build with all necessary files
+- **Deploy**: Automatically deploys to GitHub Pages
+- **Features**: 
+  - Includes `.well-known` directory
+  - Generates `robots.txt` and `sitemap.xml`
+  - Preserves `.nojekyll` file
+  - Handles all static assets
+
+### 6. Troubleshooting
 
 If you still get 404 errors:
 
-1. **Check branch name**: Ensure GitHub Pages is configured for the **master** branch
-2. **Wait for deployment**: GitHub Pages can take a few minutes to deploy
-3. **Clear cache**: Try accessing the URLs in an incognito window
-4. **Check file permissions**: Ensure all files are committed and pushed
+1. **Check GitHub Pages source**: Ensure it's set to "GitHub Actions"
+2. **Check workflow runs**: Verify the deployment workflow is running
+3. **Wait for deployment**: GitHub Pages can take a few minutes to deploy
+4. **Clear cache**: Try accessing the URLs in an incognito window
+5. **Check file permissions**: Ensure all files are committed and pushed
 
-### 6. Alternative Solutions
+### 7. Alternative Solutions
 
 If the issue persists, consider:
 
@@ -64,21 +79,24 @@ If the issue persists, consider:
 - ✅ Verification page created
 - ✅ GitHub Actions workflows updated for master branch
 - ✅ Website updated with Pete Souter's information
+- ✅ Automated deployment workflow added
 - ⏳ GitHub Pages needs to be enabled in repository settings
 
 ## Next Steps
 
-1. Enable GitHub Pages in repository settings (select **master** branch)
-2. Wait for deployment (usually 2-5 minutes)
-3. Test the URLs listed above
-4. Remove test files once confirmed working
-5. Update website content with Pete Souter's actual information from his GitHub profile
+1. Enable GitHub Pages in repository settings (select **GitHub Actions**)
+2. Push changes to trigger the deployment workflow
+3. Wait for deployment (usually 2-5 minutes)
+4. Test the URLs listed above
+5. Remove test files once confirmed working
+6. Update website content with Pete Souter's actual information from his GitHub profile
 
 ## Branch Configuration
 
 - **Default branch**: `master`
-- **GitHub Pages source**: `master` branch
+- **GitHub Pages source**: GitHub Actions
 - **GitHub Actions**: Configured for `master` branch
+- **Deployment**: Automated via workflow
 
 ## Content Updates Needed
 
@@ -89,3 +107,13 @@ The website currently contains placeholder content. To make it more accurate, pl
 3. **Experience section** - Update with real work experience
 4. **Projects section** - Add actual GitHub repositories and projects
 5. **Contact section** - Update with correct contact information
+
+## Deployment Workflows Available
+
+Three deployment workflows are available:
+
+1. **`deploy-static.yml`** (Recommended) - Optimized for static sites
+2. **`deploy.yml`** - Uses gh-pages package
+3. **`deploy-simple.yml`** - Simple deployment with Jekyll
+
+The recommended workflow is `deploy-static.yml` as it's specifically designed for static websites and includes proper handling of the `.well-known` directory.
