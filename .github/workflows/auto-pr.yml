@@ -2,19 +2,19 @@ name: Auto Pull Request for Content Changes
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
   workflow_dispatch:
     inputs:
       target_branch:
         description: 'Target branch for PR'
         required: true
-        default: 'main'
+        default: 'master'
         type: string
 
 jobs:
   create-pr:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/master'
     
     steps:
     - name: Checkout code
@@ -39,7 +39,7 @@ jobs:
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        base: main
+        base: master
         branch: update-content-${{ github.run_number }}
         title: "📝 Update website content and styling"
         body: |

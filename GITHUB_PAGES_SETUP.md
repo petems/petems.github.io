@@ -12,7 +12,7 @@ The `.well-known` directory is currently returning a 404 error. This guide helps
 2. Click on **Settings** tab
 3. Scroll down to **Pages** section
 4. Under **Source**, select **Deploy from a branch**
-5. Choose **main** branch (or **master** if that's your default branch)
+5. Choose **master** branch (your default branch)
 6. Click **Save**
 
 ### 2. Verify Configuration Files
@@ -44,7 +44,7 @@ If properly configured, you should see:
 
 If you still get 404 errors:
 
-1. **Check branch name**: Ensure GitHub Pages is configured for the correct branch
+1. **Check branch name**: Ensure GitHub Pages is configured for the **master** branch
 2. **Wait for deployment**: GitHub Pages can take a few minutes to deploy
 3. **Clear cache**: Try accessing the URLs in an incognito window
 4. **Check file permissions**: Ensure all files are committed and pushed
@@ -62,11 +62,18 @@ If the issue persists, consider:
 - ✅ `.nojekyll` file added
 - ✅ Test files created
 - ✅ Verification page created
+- ✅ GitHub Actions workflows updated for master branch
 - ⏳ GitHub Pages needs to be enabled in repository settings
 
 ## Next Steps
 
-1. Enable GitHub Pages in repository settings
+1. Enable GitHub Pages in repository settings (select **master** branch)
 2. Wait for deployment (usually 2-5 minutes)
 3. Test the URLs listed above
 4. Remove test files once confirmed working
+
+## Branch Configuration
+
+- **Default branch**: `master`
+- **GitHub Pages source**: `master` branch
+- **GitHub Actions**: Configured for `master` branch
