@@ -1,6 +1,6 @@
-# Pete Murray - Personal Website
+# Pete Souter - Personal Website
 
-A modern, responsive personal website showcasing Pete Murray's professional experience, skills, and projects. Built with HTML5, CSS3, and vanilla JavaScript.
+A modern, responsive personal website showcasing Pete Souter's professional experience, skills, and projects. Built with HTML5, CSS3, and vanilla JavaScript.
 
 ## 🌟 Features
 
@@ -105,7 +105,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **GitHub**: [@petems](https://github.com/petems)
 - **Email**: contact@example.com
-- **LinkedIn**: [Pete Murray](https://linkedin.com/in/petems)
+- **LinkedIn**: [Pete Souter](https://linkedin.com/in/petems)
 
 ---
 

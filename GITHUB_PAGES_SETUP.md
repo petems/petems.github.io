@@ -63,6 +63,7 @@ If the issue persists, consider:
 - ✅ Test files created
 - ✅ Verification page created
 - ✅ GitHub Actions workflows updated for master branch
+- ✅ Website updated with Pete Souter's information
 - ⏳ GitHub Pages needs to be enabled in repository settings
 
 ## Next Steps
@@ -71,9 +72,20 @@ If the issue persists, consider:
 2. Wait for deployment (usually 2-5 minutes)
 3. Test the URLs listed above
 4. Remove test files once confirmed working
+5. Update website content with Pete Souter's actual information from his GitHub profile
 
 ## Branch Configuration
 
 - **Default branch**: `master`
 - **GitHub Pages source**: `master` branch
 - **GitHub Actions**: Configured for `master` branch
+
+## Content Updates Needed
+
+The website currently contains placeholder content. To make it more accurate, please update the following sections in `index.html` with information from Pete Souter's GitHub profile:
+
+1. **About section** - Update with actual bio and background
+2. **Skills section** - Add actual technologies and skills
+3. **Experience section** - Update with real work experience
+4. **Projects section** - Add actual GitHub repositories and projects
+5. **Contact section** - Update with correct contact information
