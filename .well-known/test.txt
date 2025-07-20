@@ -1,0 +1,2 @@
+This is a test file to verify that the .well-known directory is accessible via GitHub Pages.
+If you can see this file, then the .well-known directory is properly configured.
