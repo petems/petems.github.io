@@ -28,7 +28,6 @@ This PR completely overhauls the static website with a modern, responsive design
 
 ### 🤖 **GitHub Actions Workflows**
 - **Content validation workflow** (`validate.yml`) - Comprehensive validation with Node.js 20
-- **Simple validation workflow** (`simple-validate.yml`) - Basic checks without external tools
 - **Automated deployment workflow** (`deploy-static.yml`) - Modern GitHub Pages deployment
 - **Auto PR workflow** (`auto-pr.yml`) - Automatic pull request creation for content changes
 
@@ -44,7 +43,6 @@ petems.github.io/
 │   └── test.txt                  # Test file for verification
 ├── .github/workflows/            # GitHub Actions workflows
 │   ├── validate.yml              # Main validation workflow
-│   ├── simple-validate.yml       # Simple validation workflow
 │   ├── deploy-static.yml         # Deployment workflow
 │   └── auto-pr.yml              # Auto PR workflow
 ├── verify-well-known.html        # Verification page
@@ -126,7 +124,6 @@ This PR completely overhauls the static website with a modern, responsive design
 
 ### 🤖 GitHub Actions Workflows
 - Content validation workflow with Node.js 20
-- Simple validation workflow for basic checks
 - Automated deployment workflow for GitHub Pages
 - Auto PR workflow for content changes
 
@@ -216,7 +213,6 @@ This PR completely overhauls the static website with a modern, responsive design
 - `script.js` - Interactive features
 - `.nojekyll` - GitHub Pages config
 - `.github/workflows/validate.yml` - Validation workflow
-- `.github/workflows/simple-validate.yml` - Simple validation
 - `.github/workflows/deploy-static.yml` - Deployment workflow
 - `.github/workflows/auto-pr.yml` - Auto PR workflow
 - `verify-well-known.html` - Verification page

@@ -108,12 +108,23 @@ The website currently contains placeholder content. To make it more accurate, pl
 4. **Projects section** - Add actual GitHub repositories and projects
 5. **Contact section** - Update with correct contact information
 
-## Deployment Workflows Available
+## GitHub Actions Workflows
 
-Three deployment workflows are available:
+Two main workflows are configured:
 
-1. **`deploy-static.yml`** (Recommended) - Optimized for static sites
-2. **`deploy.yml`** - Uses gh-pages package
-3. **`deploy-simple.yml`** - Simple deployment with Jekyll
+1. **`validate.yml`** - Comprehensive content validation with Node.js 20
+   - HTML, CSS, JavaScript, and Markdown validation
+   - File structure and accessibility checks
+   - Broken link detection
+   - File size analysis
 
-The recommended workflow is `deploy-static.yml` as it's specifically designed for static websites and includes proper handling of the `.well-known` directory.
+2. **`deploy-static.yml`** - Automated deployment to GitHub Pages
+   - Static site build and deployment
+   - Proper handling of `.well-known` directory
+   - SEO files generation (robots.txt, sitemap.xml)
+   - Modern GitHub Pages deployment method
+
+3. **`auto-pr.yml`** - Automatic pull request creation for content changes
+   - Creates PRs when content files are modified
+   - Adds review checklist and labels
+   - Provides preview links
