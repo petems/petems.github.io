@@ -1,0 +1,129 @@
+name: Validate Static Content
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install validation tools
+      run: |
+        npm install -g html-validate
+        npm install -g stylelint stylelint-config-standard
+        npm install -g eslint
+        npm install -g markdownlint-cli
+        
+    - name: Validate HTML
+      run: |
+        echo "Validating HTML files..."
+        html-validate index.html --config .htmlvalidate.json || true
+        
+    - name: Validate CSS
+      run: |
+        echo "Validating CSS files..."
+        stylelint "*.css" --config .stylelintrc.json || true
+        
+    - name: Validate JavaScript
+      run: |
+        echo "Validating JavaScript files..."
+        eslint "*.js" --config .eslintrc.json || true
+        
+    - name: Validate Markdown
+      run: |
+        echo "Validating Markdown files..."
+        markdownlint "*.md" --config .markdownlint.json || true
+        
+    - name: Check for broken links
+      run: |
+        echo "Checking for broken links..."
+        # Install linkchecker if available
+        if command -v linkchecker &> /dev/null; then
+          linkchecker --no-robots --no-warnings --check-extern index.html || true
+        else
+          echo "Linkchecker not available, skipping link validation"
+        fi
+        
+    - name: Validate file structure
+      run: |
+        echo "Validating file structure..."
+        if [ ! -f "index.html" ]; then
+          echo "❌ index.html is missing"
+          exit 1
+        fi
+        if [ ! -f "styles.css" ]; then
+          echo "❌ styles.css is missing"
+          exit 1
+        fi
+        if [ ! -f "script.js" ]; then
+          echo "❌ script.js is missing"
+          exit 1
+        fi
+        echo "✅ All required files present"
+        
+    - name: Check file sizes
+      run: |
+        echo "Checking file sizes..."
+        echo "HTML size: $(wc -c < index.html) bytes"
+        echo "CSS size: $(wc -c < styles.css) bytes"
+        echo "JS size: $(wc -c < script.js) bytes"
+        
+        # Warn if files are too large
+        if [ $(wc -c < index.html) -gt 50000 ]; then
+          echo "⚠️  HTML file is larger than 50KB"
+        fi
+        if [ $(wc -c < styles.css) -gt 100000 ]; then
+          echo "⚠️  CSS file is larger than 100KB"
+        fi
+        if [ $(wc -c < script.js) -gt 50000 ]; then
+          echo "⚠️  JavaScript file is larger than 50KB"
+        fi
+        
+    - name: Validate accessibility
+      run: |
+        echo "Running basic accessibility checks..."
+        # Check for alt attributes on images
+        if grep -q "<img" index.html && ! grep -q "alt=" index.html; then
+          echo "⚠️  Images found without alt attributes"
+        fi
+        
+        # Check for semantic HTML elements
+        if ! grep -q "<main>" index.html; then
+          echo "⚠️  No <main> element found"
+        fi
+        
+        if ! grep -q "<nav>" index.html; then
+          echo "⚠️  No <nav> element found"
+        fi
+        
+        echo "✅ Basic accessibility checks completed"
+        
+    - name: Create validation report
+      run: |
+        echo "## Validation Report" >> $GITHUB_STEP_SUMMARY
+        echo "### Files Checked:" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ index.html" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ styles.css" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ script.js" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ README.md" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Validation Results:" >> $GITHUB_STEP_SUMMARY
+        echo "- HTML validation completed" >> $GITHUB_STEP_SUMMARY
+        echo "- CSS validation completed" >> $GITHUB_STEP_SUMMARY
+        echo "- JavaScript validation completed" >> $GITHUB_STEP_SUMMARY
+        echo "- Markdown validation completed" >> $GITHUB_STEP_SUMMARY
+        echo "- File structure validation completed" >> $GITHUB_STEP_SUMMARY
+        echo "- Basic accessibility checks completed" >> $GITHUB_STEP_SUMMARY

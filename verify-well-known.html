@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify .well-known Directory</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>Verify .well-known Directory Access</h1>
+    
+    <div class="info">
+        <h3>Instructions:</h3>
+        <p>This page helps verify if the .well-known directory is accessible via GitHub Pages.</p>
+        <p>Open the browser console (F12) to see the test results.</p>
+    </div>
+
+    <div id="results"></div>
+
+    <h3>Manual Tests:</h3>
+    <ul>
+        <li><a href="/.well-known/test.txt" target="_blank">Test File</a></li>
+        <li><a href="/.well-known/microsoft-identity-association.json" target="_blank">Microsoft Identity Association</a></li>
+    </ul>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        async function testUrl(url, description) {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    const content = await response.text();
+                    console.log(`✅ ${description}: Success`, content);
+                    resultsDiv.innerHTML += `<div class="status success">✅ ${description}: Success (${response.status})</div>`;
+                } else {
+                    console.log(`❌ ${description}: Failed`, response.status, response.statusText);
+                    resultsDiv.innerHTML += `<div class="status error">❌ ${description}: Failed (${response.status})</div>`;
+                }
+            } catch (error) {
+                console.log(`❌ ${description}: Error`, error);
+                resultsDiv.innerHTML += `<div class="status error">❌ ${description}: Error - ${error.message}</div>`;
+            }
+        }
+
+        // Test the .well-known files
+        testUrl('/.well-known/test.txt', 'Test File');
+        testUrl('/.well-known/microsoft-identity-association.json', 'Microsoft Identity Association');
+        
+        console.log('Verification tests completed. Check the results above.');
+    </script>
+</body>
+</html>
